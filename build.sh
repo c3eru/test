@@ -43,26 +43,18 @@ function cloneTC() {
 	    git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git --depth=1 gcc
 	
 	    git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git  --depth=1 gcc32
-	
-	     PATH="${KERNEL_DIR}/aosp-clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}"
 
         git clone --depth=1 https://github.com/reaPeR1010/AnyKernel3
+        
+        PATH="${KERNEL_DIR}/aosp-clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}"
+        make -j$(nproc) O=out ARCH=arm64 ${DEVICE_DEFCONFIG}
+        make -j$(nproc) ARCH=arm64 O=out \
+        CC=clang \
+        CLANG_TRIPLE=aarch64-linux-gnu- \
+	    CROSS_COMPILE=aarch64-linux-android- \
+	    CROSS_COMPILE_COMPAT=arm-linux-androideabi- \
+	    V=$VERBOSE 2>&1 | tee error.log
 
-}
-
-# Compilation
-function compile() {
-START=$(date +"%s")
-
-    make -j$(nproc) O=out ARCH=arm64 ${DEVICE_DEFCONFIG}
-make -j$(nproc) ARCH=arm64 O=out \
-    CC=clang \
-    CLANG_TRIPLE=aarch64-linux-gnu- \
-	CROSS_COMPILE=aarch64-linux-android- \
-	CROSS_COMPILE_COMPAT=arm-linux-androideabi- \
-	V=$VERBOSE 2>&1 | tee error.log
-	
-	
 	# Verify Files
 	if ! [ -a "$IMAGE" ];
 	   then
@@ -71,6 +63,7 @@ make -j$(nproc) ARCH=arm64 O=out \
 	   else
 	       post_msg " Kernel Compilation Finished. Started Zipping "
 	fi
+
 }
 
 
@@ -105,7 +98,6 @@ function push() {
 
 
 cloneTC
-compile
 END=$(date +"%s")
 DIFF=$(($END - $START))
 zipping
