@@ -10,6 +10,8 @@ task:
       cpu: 8
       memory: 32G
 
-  Build_script:
+  Sync_script:
       - git clone --depth=1 -b lime-q-oss https://github.com/c3eru/Xiaomi_Kernel_OpenSource_Bengal lv && cd lv
-      - bash build.sh --azure
+  
+  Build_script:
+      - ./build.sh
