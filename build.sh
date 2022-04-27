@@ -154,16 +154,13 @@ function push() {
 # Compilation
 function compile() {
 START=$(date +"%s")
-	# Push Notification
-	post_msg "<b>$KBUILD_BUILD_VERSION CI Build Triggered</b>%0A<b>Docker OS: </b><code>$DISTRO</code>%0A<b>Kernel Version : </b><code>$KERVER</code>%0A<b>Date : </b><code>$(TZ=Asia/Kolkata date)</code>%0A<b>Device : </b><code>$MODEL [$DEVICE]</code>%0A<b>Pipeline Host : </b><code>$KBUILD_BUILD_HOST</code>%0A<b>Host Core Count : </b><code>$PROCS</code>%0A<b>Compiler Used : </b><code>$KBUILD_COMPILER_STRING</code>%0A<b>Branch : </b><code>$CI_BRANCH</code>%0A<b>Top Commit : </b><a href='$DRONE_COMMIT_LINK'>$COMMIT_HEAD</a>"
-	
 	# Compile
-	make O=out CC="ccache clang" ARCH=arm64 vendor/citrus-perf_defconfig
+	make O=out CC=clang ARCH=arm64 vendor/citrus-perf_defconfig
 	if [ -d ${KERNEL_DIR}/clang ];
 	   then
 	       make -kj$(nproc --all) O=out \
 	       ARCH=arm64 \
-	       CC="ccache clang" \
+	       CC=clang \
 	       CROSS_COMPILE=aarch64-linux-gnu- \
 	       CROSS_COMPILE_COMPAT=arm-linux-gnueabi- \
 	       V=$VERBOSE 2>&1 | tee error.log
