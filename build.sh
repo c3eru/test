@@ -27,7 +27,7 @@ DEVICE=Lavender
 VERSION=X1
 
 # Kernel Defconfig
-DEFCONFIG=vendor/citrus-pref_defconfig
+DEFCONFIG=vendor/citrus-perf_defconfig
 
 # Files
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
