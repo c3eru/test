@@ -54,15 +54,14 @@ function cloneTC() {
 function compile() {
 START=$(date +"%s")
 
-if [ -d ${KERNEL_DIR}/clang ];
     make -j$(nproc) O=out ARCH=arm64 ${DEVICE_DEFCONFIG}
 make -j$(nproc) ARCH=arm64 O=out \
     CC=clang \
     CLANG_TRIPLE=aarch64-linux-gnu- \
 	CROSS_COMPILE=aarch64-linux-android- \
 	CROSS_COMPILE_COMPAT=arm-linux-androideabi- \
-	       V=$VERBOSE 2>&1 | tee error.log
-	fi
+	V=$VERBOSE 2>&1 | tee error.log
+	
 	
 	# Verify Files
 	if ! [ -a "$IMAGE" ];
