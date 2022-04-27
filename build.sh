@@ -215,8 +215,6 @@ function zipping() {
 ##----------------------------------------------------------##
 
 cloneTC
-exports
-configs
 compile
 END=$(date +"%s")
 DIFF=$(($END - $START))
