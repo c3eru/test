@@ -72,33 +72,6 @@ fi
 # Clone ToolChain
 function cloneTC() {
 	
-	if [ $COMPILER = "neutron" ];
-	then
-	post_msg " Cloning Neutron Clang ToolChain "
-	git clone --depth=1  https://github.com/Neutron-Clang/neutron-toolchain.git clang
-	PATH="${KERNEL_DIR}/clang/bin:$PATH"
-	
-	elif [ $COMPILER = "proton" ];
-	then
-	post_msg " Cloning Proton Clang ToolChain "
-	git clone --depth=1  https://github.com/kdrag0n/proton-clang.git clang
-	PATH="${KERNEL_DIR}/clang/bin:$PATH"
-	
-	elif [ $COMPILER = "azure" ];
-	then
-	post_msg " Cloning Azure Clang ToolChain "
-	git clone --depth=1  https://gitlab.com/Panchajanya1999/azure-clang.git clang
-	PATH="${KERNEL_DIR}/clang/bin:$PATH"
-	
-	elif [ $COMPILER = "eva" ];
-	then
-	post_msg " Cloning Eva GCC ToolChain "
-	git clone --depth=1 https://github.com/mvaisakh/gcc-arm64.git -b gcc-new gcc64
-	git clone --depth=1 https://github.com/mvaisakh/gcc-arm.git -b gcc-new gcc32
-	PATH=$KERNEL_DIR/gcc64/bin/:$KERNEL_DIR/gcc32/bin/:/usr/bin:$PATH
-	
-	elif [ $COMPILER = "aosp" ];
-	then
 	post_msg " Cloning Aosp Clang 14.0.1 ToolChain "
         mkdir aosp-clang
         cd aosp-clang || exit
@@ -108,7 +81,6 @@ function cloneTC() {
 	git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git --depth=1 gcc
 	git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git  --depth=1 gcc32
 	PATH="${KERNEL_DIR}/aosp-clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}"
-	fi
         # Clone AnyKernel
         git clone --depth=1 https://github.com/reaPeR1010/AnyKernel3
 
