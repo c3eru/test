@@ -11,5 +11,5 @@ task:
       memory: 32G
 
   Build_script:
-      - git clone --depth=1 -b 4.19-rebase https://github.com/projects-nexus/android_kernel_lavender-4.19 lv && cd lv
+      - git clone --depth=1 -b lime-q-oss https://github.com/c3eru/Xiaomi_Kernel_OpenSource_Bengal lv && cd lv
       - bash build.sh --azure
